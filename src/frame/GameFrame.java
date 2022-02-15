@@ -146,7 +146,6 @@ public class GameFrame extends JFrame implements KeyListener {
 					pc.jump();
 				}
 			}
-
 		}
 	}
 

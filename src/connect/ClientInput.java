@@ -10,11 +10,13 @@ public class ClientInput extends JFrame implements ActionListener {
 	IntroFrame introframe;
 	JTextField jtfServerIP;
 	JTextField jtfServerPort;
+	JTextField jtfName;
 	JButton jbStart;
 	JButton jbServer;
 	JButton jbClient;
 	int port;
 	String ip;
+	String name;
 	Client client;
 	public Opponent op;
 	public ClientInput(IntroFrame introframe) {
@@ -37,6 +39,14 @@ public class ClientInput extends JFrame implements ActionListener {
 		jtfServerPort.setSize(220, 25);
 		jtfServerPort.setLocation(80, 100);
 
+		JLabel jlName = new JLabel("닉네임을 입력하세요"); 
+		jlName.setSize(200,50);
+		jlName.setLocation(80, 120);
+		
+		jtfName = new JTextField(20); //닉네임 입력 JTextField
+		jtfName.setSize(220,25);
+		jtfName.setLocation(80, 160);
+		
 		JButton jbSet = new JButton("시작"); // 확인 버튼
 		jbSet.setSize(60, 30);
 		jbSet.setLocation(100, 140);
@@ -64,7 +74,7 @@ public class ClientInput extends JFrame implements ActionListener {
 		ct.add(jbCancel);
 		setVisible(true);
 		setTitle("클라이언트 연결 설정");
-		setSize(330, 210);
+		setSize(330, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);

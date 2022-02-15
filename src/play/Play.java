@@ -20,8 +20,8 @@ public class Play {
 		ImageIcon iiWin = new ImageIcon("pikachu_win.png");
 		Image imgWin = iiWin.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		iiWin_setSize = new ImageIcon(imgWin);
-		
-		if(!IntroFrame.isServer) {
+
+		if (!IntroFrame.isServer) {
 			gameframe.jp.add(gameframe.client.pbc);
 			gameframe.jp.add(gameframe.client.jlRound);
 			gameframe.jp.add(gameframe.client.jlScore_ps);
@@ -39,7 +39,7 @@ public class Play {
 			jlRound.setForeground(Color.red);
 			jlRound.setFont(new Font("Cooper Black", Font.BOLD, 50));
 			jp.add(jlRound);
-			
+
 			Pokeball ball;
 			for (round = 1; round <= ROUND_MAX; round++) {
 				jlRound.setText(round + " Round");
@@ -53,17 +53,17 @@ public class Play {
 					e.printStackTrace();
 				}
 			}
-			if (Pokeball.psScore > Pokeball.psScore) {
+
+			if (Pokeball.psScore > Pokeball.pcScore) {
 				jlRound.setText("Server Win!");
 
 			}
-			if (Pokeball.pcScore < Pokeball.pcScore) {
+			if (Pokeball.pcScore < Pokeball.psScore) {
 				jlRound.setText("Client Win!");
 			}
 			if (Pokeball.psScore == Pokeball.pcScore) {
 				jlRound.setText("Draw");
-				winner = null; // 비기면 우승자 없음
 			}
-		} 
+		}
 	}
 }

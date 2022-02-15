@@ -55,7 +55,6 @@ public class Player_Server extends JLabel {
 			setLocation(getX() + 20, yPos);
 
 		}
-		//sendLocation();
 		updateUI();
 	}
 
@@ -69,7 +68,6 @@ public class Player_Server extends JLabel {
 			setLocation(getX() - 20, yPos);
 
 		}
-		//sendLocation();
 		updateUI();
 	}
 
@@ -133,7 +131,6 @@ public class Player_Server extends JLabel {
 								y = y + jumpY; // y좌표에 낙하량을 더한다
 								foot = y + ySize; // 발바닥 위치 저장
 								setLocation(getX(), y);
-								//sendLocation();// 좌표 전송
 								updateUI();
 								try {
 									Thread.sleep(10);

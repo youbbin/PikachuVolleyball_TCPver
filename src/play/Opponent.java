@@ -5,7 +5,7 @@ import frame.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class Opponent extends JLabel implements Runnable {
+public class Opponent extends JLabel {
 	static ImageIcon pikachuR = new ImageIcon("pikachu_R.png");
 	static Image img = pikachuR.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 	public static ImageIcon pikachuR_setSize = new ImageIcon(img);
@@ -38,14 +38,4 @@ public class Opponent extends JLabel implements Runnable {
 		setLocation(xPos, yPos);
 		updateUI();
 	}
-
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		if(IntroFrame.isServer) {
-			
-		}
-	}
-
 }

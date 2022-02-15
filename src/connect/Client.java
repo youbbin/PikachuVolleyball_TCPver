@@ -1,12 +1,9 @@
 package connect;
 
 import java.net.*;
-
 import javax.swing.JLabel;
-
 import play.Opponent;
 import play.Pokeball_Client;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.io.*;
@@ -74,7 +71,6 @@ public class Client extends Thread {
 		while (true) {
 			try {
 				read = br.readLine();
-				System.out.println(read);
 				String[] split = read.split(" "); // 수신한 좌표 정보를 배열에 저장
 				if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
 					op.setIcon(Opponent.pikachuR_setSize);
@@ -89,7 +85,6 @@ public class Client extends Thread {
 				jlScore_pc.setText(split[7]);
 				int psScore=Integer.parseInt(split[6]);
 				int pcScore= Integer.parseInt(split[7]);
-			
 				if (Integer.parseInt(split[5]) == 10 && psScore + pcScore== 10) {
 					if(psScore>pcScore) {
 						jlRound.setText("Server Win!");
@@ -104,6 +99,7 @@ public class Client extends Thread {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				break;
 			}
 		}
 	}
