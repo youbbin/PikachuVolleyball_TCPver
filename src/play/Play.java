@@ -13,27 +13,33 @@ public class Play {
 	public static String winner; // 우승자
 	ImageIcon iiWin_setSize;
 	static int round;
+
 	public Play(GameFrame gameframe) {
 		this.gameframe = gameframe;
 		this.jp = gameframe.jp;
 		ImageIcon iiWin = new ImageIcon("pikachu_win.png");
 		Image imgWin = iiWin.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		iiWin_setSize = new ImageIcon(imgWin);
+		
+		if(!IntroFrame.isServer) {
+			gameframe.jp.add(gameframe.client.pbc);
+			gameframe.jp.add(gameframe.client.jlRound);
+			gameframe.jp.add(gameframe.client.jlScore_ps);
+			gameframe.jp.add(gameframe.client.jlScore_pc);
+		}
 	}
 
 	public void roundStart() {
-		JLabel jlRound = new JLabel(); // 몇 라운드인지 표시하는 레이블
-		jlRound.setSize(500, 100);
-		jlRound.setLocation(230, 10);
-		jlRound.setHorizontalAlignment(JLabel.CENTER);
-		jlRound.setForeground(Color.red);
-		jlRound.setFont(new Font("Cooper Black", Font.BOLD, 50));
-		jp.add(jlRound);
-
-		
-		
-		if (IntroFrame.isServer) {	
+		if (IntroFrame.isServer) {
 			// 서버가 ROUND_MAX만큼 포켓볼 스레드 실행
+			JLabel jlRound = new JLabel(); // 몇 라운드인지 표시하는 레이블
+			jlRound.setSize(500, 100);
+			jlRound.setLocation(230, 10);
+			jlRound.setHorizontalAlignment(JLabel.CENTER);
+			jlRound.setForeground(Color.red);
+			jlRound.setFont(new Font("Cooper Black", Font.BOLD, 50));
+			jp.add(jlRound);
+			
 			Pokeball ball;
 			for (round = 1; round <= ROUND_MAX; round++) {
 				jlRound.setText(round + " Round");
@@ -47,20 +53,17 @@ public class Play {
 					e.printStackTrace();
 				}
 			}
-		}else {
-			gameframe.jp.add(gameframe.client.pbc);
-		}
+			if (Pokeball.psScore > Pokeball.psScore) {
+				jlRound.setText("Server Win!");
 
-		if (Pokeball.psScore > Pokeball.psScore) {
-			jlRound.setText("1P Win!");
-
-		}
-		if (Pokeball.pcScore < Pokeball.pcScore) {
-			jlRound.setText("2P Win!");
-		}
-		if (Pokeball.psScore == Pokeball.pcScore) {
-			jlRound.setText("Draw");
-			winner = null; // 비기면 우승자 없음
-		}
+			}
+			if (Pokeball.pcScore < Pokeball.pcScore) {
+				jlRound.setText("Client Win!");
+			}
+			if (Pokeball.psScore == Pokeball.pcScore) {
+				jlRound.setText("Draw");
+				winner = null; // 비기면 우승자 없음
+			}
+		} 
 	}
 }

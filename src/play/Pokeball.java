@@ -76,8 +76,9 @@ public class Pokeball extends JLabel implements Runnable {
 			// 플레이어1 진영의 바닥에 닿았을 때
 			else if (xPos + xSize <= netXPos && yPos + ySize >= yMax - GameFrame.groundHeight) {
 				roundFinish = true;
-				pcScore++;
+				pcScore += 1;
 				setScore();
+				sendLocation();
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -90,8 +91,9 @@ public class Pokeball extends JLabel implements Runnable {
 			// 플레이어2 진영의 바닥에 닿았을 때
 			else if (xPos >= netXPos + netXSize && yPos + ySize >= yMax - GameFrame.groundHeight) {
 				roundFinish = true;
-				psScore++;
+				psScore += 1;
 				setScore();
+				sendLocation();
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -155,7 +157,8 @@ public class Pokeball extends JLabel implements Runnable {
 
 	public void sendLocation() {
 		// 서버의 방향과 위치, 공 위치를 전송
-		server.send(ps.direction + " " + ps.getX() + " " + ps.getY() + " " + getX() + " " + getY()+" "+Play.round+" "+psScore+" "+pcScore);
+		server.send(ps.direction + " " + ps.getX() + " " + ps.getY() + " " + getX() + " " + getY() + " " + Play.round
+				+ " " + psScore + " " + pcScore);
 	}
 
 	public void setScore() {

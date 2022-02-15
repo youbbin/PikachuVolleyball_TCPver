@@ -23,6 +23,7 @@ public class GameFrame extends JFrame implements KeyListener {
 	public Player_Server ps;
 	Player_Client pc;
 	public Opponent op;
+	public JLabel jlRound;
 
 	public GameFrame(Server server) {
 		ct = getContentPane();
@@ -32,6 +33,7 @@ public class GameFrame extends JFrame implements KeyListener {
 	public GameFrame(Client client) {
 		ct = getContentPane();
 		this.client = client;
+		jlRound = client.jlRound;
 	}
 
 	public void createGameFrame() {
@@ -41,24 +43,26 @@ public class GameFrame extends JFrame implements KeyListener {
 		jp.setLayout(null);
 		jp.setBackground(Color.cyan);
 
-		jlScore_p1 = new JLabel("0", JLabel.CENTER); // 플레이어1의 점수 레이블
-		jlScore_p1.setFont(new Font("Cooper Black", Font.BOLD, 70));
-		jlScore_p1.setForeground(Color.red);
-		jlScore_p1.setSize(100, 100);
-		jlScore_p1.setLocation(50, 0);
-		jp.add(jlScore_p1);
+		if (IntroFrame.isServer) {
+			jlScore_p1 = new JLabel("0", JLabel.CENTER); // 플레이어1의 점수 레이블
+			jlScore_p1.setFont(new Font("Cooper Black", Font.BOLD, 70));
+			jlScore_p1.setForeground(Color.red);
+			jlScore_p1.setSize(100, 100);
+			jlScore_p1.setLocation(50, 0);
+			jp.add(jlScore_p1);
 
-		jlScore_p2 = new JLabel("0", JLabel.CENTER); // 플레이어2의 점수 레이블
-		jlScore_p2.setFont(new Font("Cooper Black", Font.BOLD, 70));
-		jlScore_p2.setForeground(Color.red);
-		jlScore_p2.setSize(100, 100);
-		jlScore_p2.setLocation(jp.getWidth() - 150, 0);
-		jp.add(jlScore_p2);
+			jlScore_p2 = new JLabel("0", JLabel.CENTER); // 플레이어2의 점수 레이블
+			jlScore_p2.setFont(new Font("Cooper Black", Font.BOLD, 70));
+			jlScore_p2.setForeground(Color.red);
+			jlScore_p2.setSize(100, 100);
+			jlScore_p2.setLocation(jp.getWidth() - 150, 0);
+			jp.add(jlScore_p2);
+		}
 
 		createGround(); // 바닥 생성
 		createNet(); // 네트 생성
 		createPlayer(); // 플레이어 생성
-		createOpponent(); //상대방 생성
+		createOpponent(); // 상대방 생성
 
 		GameStartLabel gs = new GameStartLabel(this); // 시작 레이블 스레드 생성
 		jp.add(gs);
@@ -107,20 +111,18 @@ public class GameFrame extends JFrame implements KeyListener {
 			pc.setPlayer(jp.getWidth() - 200, jp.getHeight() - pc.getHeight() - groundHeight);
 		}
 	}
-	
+
 	public void createOpponent() {
-		if(IntroFrame.isServer) {
-			op=server.op;
+		if (IntroFrame.isServer) {
+			op = server.op;
 			op.setOpponent(jp.getWidth() - 200, jp.getHeight() - ps.getHeight() - groundHeight);
 			jp.add(op);
-		}
-		else {
-			op=client.op;
+		} else {
+			op = client.op;
 			op.setOpponent(50, jp.getHeight() - pc.getHeight() - groundHeight);
 			jp.add(op);
 		}
 	}
-	
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -135,8 +137,7 @@ public class GameFrame extends JFrame implements KeyListener {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					ps.jump();
 				}
-			}
-			else {
+			} else {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT)
 					pc.moveLeft();
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT)
