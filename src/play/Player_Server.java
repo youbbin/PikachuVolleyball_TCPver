@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 import connect.*;
 import frame.GameFrame;
-import play.Player1.Jump;
+
 
 public class Player_Server extends JLabel {
 	Server server;

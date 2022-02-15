@@ -14,8 +14,6 @@ public class GameFrame extends JFrame implements KeyListener {
 	Container ct;
 	public JLabel jlScore_p1;
 	public JLabel jlScore_p2;
-	public Player1 p1;
-	public Player2 p2;
 	public JPanel jp;
 	public static boolean gameStart = false;
 	public static int groundHeight;

@@ -47,12 +47,11 @@ public class Play {
 		if (Pokeball.p1Score > Pokeball.p2Score) {
 			jlRound.setText("1P Win!");
 
-			gameframe.p1.setIcon(iiWin_setSize); // 이긴 피카츄 아이콘으로 변경
+			
 		}
 		if (Pokeball.p1Score < Pokeball.p2Score) {
 			jlRound.setText("2P Win!");
 
-			gameframe.p2.setIcon(iiWin_setSize); // 이긴 피카츄 아이콘으로 변경
 		}
 		if (Pokeball.p1Score == Pokeball.p2Score) {
 			jlRound.setText("Draw");

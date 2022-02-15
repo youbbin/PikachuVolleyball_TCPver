@@ -11,15 +11,12 @@ import connect.*;
 public class GameStartLabel extends JLabel implements Runnable { // 게임 시작 레이블이 위에서 중간까지 내려와 1초간 멈춘 후 게임이 시작됨
 	JPanel jp;
 	JLabel jlNet;
-	Player1 p1;
-	Player2 p2;
+
 	GameFrame gameframe;
 	public GameStartLabel(GameFrame gameframe) {
 		this.gameframe=gameframe;
 		this.jp = gameframe.jp;
 		this.jlNet = gameframe.jlNet;
-		this.p1 = gameframe.p1;
-		this.p2 = gameframe.p2;
 		ImageIcon iiStartLabel = new ImageIcon("start_label.png");
 		Image imgStartLabel = iiStartLabel.getImage().getScaledInstance(500, 150, Image.SCALE_SMOOTH);
 		ImageIcon iiStartLabel_setSize = new ImageIcon(imgStartLabel);
