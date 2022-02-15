@@ -1,10 +1,10 @@
 package play;
 
-
 import java.awt.*;
 import java.util.Random;
 import javax.swing.*;
 import frame.GameFrame;
+import connect.*;
 
 public class Pokeball extends JLabel implements Runnable {
 	JPanel jp;
@@ -25,16 +25,19 @@ public class Pokeball extends JLabel implements Runnable {
 	int netXSize;
 	int netYSize;
 	Random r = new Random();
-	Player1 p1;
-	Player2 p2;
+	Player_Server ps;
+	Opponent op;
 	static boolean roundFinish = false;
-	static int p1Score;
-	static int p2Score;
+	static int psScore;
+	static int pcScore;
+	Server server;
 
 	public Pokeball(GameFrame gameframe) {
 		jp = gameframe.jp;
-		p1 = gameframe.p1;
-		p2 = gameframe.p2;
+		ps = gameframe.ps;
+		op = gameframe.op;
+		server = gameframe.server;
+
 		jlScore_p1 = gameframe.jlScore_p1;
 		jlScore_p2 = gameframe.jlScore_p2;
 		ImageIcon iiBall = new ImageIcon("pokeball.png");
@@ -64,6 +67,7 @@ public class Pokeball extends JLabel implements Runnable {
 			// 좌우 벽에 닿았을 때
 			if (xPos <= 0 || xPos + xSize >= xMax) {
 				xDir *= -1;
+
 			}
 			// 천장에 닿았을 때
 			else if (yPos <= 0) {
@@ -72,7 +76,7 @@ public class Pokeball extends JLabel implements Runnable {
 			// 플레이어1 진영의 바닥에 닿았을 때
 			else if (xPos + xSize <= netXPos && yPos + ySize >= yMax - GameFrame.groundHeight) {
 				roundFinish = true;
-				p2Score++;
+				pcScore++;
 				setScore();
 				try {
 					Thread.sleep(1000);
@@ -86,7 +90,7 @@ public class Pokeball extends JLabel implements Runnable {
 			// 플레이어2 진영의 바닥에 닿았을 때
 			else if (xPos >= netXPos + netXSize && yPos + ySize >= yMax - GameFrame.groundHeight) {
 				roundFinish = true;
-				p1Score++;
+				psScore++;
 				setScore();
 				try {
 					Thread.sleep(1000);
@@ -112,32 +116,33 @@ public class Pokeball extends JLabel implements Runnable {
 			}
 
 			// 플레이어1 머리 반사
-			else if (xPos + xSize >= p1.getX() && xPos <= p1.getX() + Player1.xSize && yPos + ySize == p1.getY()) {
+			else if (xPos + xSize >= ps.getX() && xPos <= ps.getX() + ps.xSize && yPos + ySize == ps.getY()) {
 				yDir *= -1;
 			}
 			// 플레이어1 몸 왼쪽 반사
-			else if (xPos + xSize == p1.getX() && yPos + ySize > p1.getY()) {
+			else if (xPos + xSize == ps.getX() && yPos + ySize > ps.getY()) {
 				xDir *= -1;
 			}
 			// 플레이어1 몸 오른쪽 반사
-			else if (xPos == p1.getX() + p1.getWidth() && yPos + ySize > p1.getY()) {
+			else if (xPos == ps.getX() + ps.getWidth() && yPos + ySize > ps.getY()) {
 				xDir *= -1;
 			}
 			// 플레이어2 머리 반사
-			else if (xPos+ xSize >= p2.getX() && xPos <= p2.getX() + Player2.xSize && yPos + ySize == p2.getY()) {
+			else if (xPos + xSize >= op.getX() && xPos <= op.getX() + op.xSize && yPos + ySize == op.getY()) {
 				yDir *= -1;
 			}
 			// 플레이어2 몸 왼쪽 반사
-			else if (xPos + xSize == p2.getX() && yPos + ySize > p2.getY()) {
+			else if (xPos + xSize == op.getX() && yPos + ySize > op.getY()) {
 				xDir *= -1;
 			}
 			// 플레이어2 몸 오른쪽 반사
-			else if (xPos == p2.getX() + p2.getWidth() && yPos + ySize > p2.getY()) {
+			else if (xPos == op.getX() + op.getWidth() && yPos + ySize > op.getY()) {
 				yDir *= -1;
 			}
 			xPos += (xDir * xSpeed); // x좌표 설정
 			yPos += (yDir * ySpeed); // y좌표 설정
 			setLocation(xPos, yPos); // 위치 셋팅
+			sendLocation();
 			updateUI();
 			try {
 				Thread.sleep(1);
@@ -148,9 +153,14 @@ public class Pokeball extends JLabel implements Runnable {
 		}
 	}
 
+	public void sendLocation() {
+		// 서버의 방향과 위치, 공 위치를 전송
+		server.send(ps.direction + " " + ps.getX() + " " + ps.getY() + " " + getX() + " " + getY()+" "+Play.round+" "+psScore+" "+pcScore);
+	}
+
 	public void setScore() {
-		jlScore_p1.setText(Integer.toString(p1Score));
-		jlScore_p2.setText(Integer.toString(p2Score));
+		jlScore_p1.setText(Integer.toString(psScore));
+		jlScore_p2.setText(Integer.toString(pcScore));
 	}
 
 	public void run() {

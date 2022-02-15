@@ -3,6 +3,7 @@ package connect;
 import java.net.*;
 
 import play.Opponent;
+import play.Pokeball_Client;
 
 import java.io.*;
 
@@ -14,7 +15,7 @@ public class Client extends Thread {
 	BufferedWriter bw;
 	String read;
 	public Opponent op;
-
+	public Pokeball_Client pbc;
 	public Client(String serverIP, int serverPort) {
 		this.serverIP = serverIP;
 		this.serverPort = serverPort;
@@ -29,6 +30,7 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 		op =new Opponent(this);
+		pbc=new Pokeball_Client();
 	}
 
 	public void send(String str) {
@@ -53,6 +55,7 @@ public class Client extends Thread {
 					op.setIcon(Opponent.pikachuL_setSize);
 				}
 				op.setOpponent(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+				pbc.setPokeball(Integer.parseInt(split[3]), Integer.parseInt(split[4]));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

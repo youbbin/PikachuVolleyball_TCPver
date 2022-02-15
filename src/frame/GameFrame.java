@@ -7,7 +7,6 @@ import javax.swing.*;
 import play.GameStartLabel;
 import play.*;
 import connect.Client;
-import connect.ClientInput;
 import connect.Server;
 
 public class GameFrame extends JFrame implements KeyListener {
@@ -19,11 +18,12 @@ public class GameFrame extends JFrame implements KeyListener {
 	public static int groundHeight;
 	public JLabel jlNet;
 	public JLabel jlWaiting;
-	Server server;
-	Client client;
-	Player_Server ps;
+	public Server server;
+	public Client client;
+	public Player_Server ps;
 	Player_Client pc;
-	Opponent op;
+	public Opponent op;
+
 	public GameFrame(Server server) {
 		ct = getContentPane();
 		this.server = server;

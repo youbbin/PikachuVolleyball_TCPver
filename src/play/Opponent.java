@@ -15,11 +15,12 @@ public class Opponent extends JLabel implements Runnable {
 	int yPos;
 	Server server;
 	Client client;
+	public int xSize;
 
 	public Opponent(Server server) { // 서버의 상대방 : 클라이언트
 		this.server = server;
 		setIcon(pikachuL_setSize);
-		int xSize = pikachuL_setSize.getIconWidth();
+		xSize = pikachuL_setSize.getIconWidth();
 		int ySize = pikachuL_setSize.getIconHeight();
 		setSize(xSize, ySize);
 	}

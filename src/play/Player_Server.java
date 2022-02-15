@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import connect.*;
 import frame.GameFrame;
 
-
 public class Player_Server extends JLabel {
 	Server server;
 	ImageIcon pikachuR_setSize;
@@ -21,7 +20,7 @@ public class Player_Server extends JLabel {
 	int yPos;
 	boolean fall;
 	boolean jump;
-	int direction; // 0: 오른쪽, 1: 왼쪽
+	public int direction; // 0: 오른쪽, 1: 왼쪽
 
 	public Player_Server(Server server, JPanel jp, JLabel jlNet) { // 서버 선택했을 때 player
 		this.server = server;
@@ -56,7 +55,7 @@ public class Player_Server extends JLabel {
 			setLocation(getX() + 20, yPos);
 
 		}
-		sendLocation();
+		//sendLocation();
 		updateUI();
 	}
 
@@ -70,7 +69,7 @@ public class Player_Server extends JLabel {
 			setLocation(getX() - 20, yPos);
 
 		}
-		sendLocation();
+		//sendLocation();
 		updateUI();
 	}
 
@@ -78,7 +77,7 @@ public class Player_Server extends JLabel {
 		Jump jump = new Jump();
 	}
 
-	public void sendLocation() {
+	public void sendLocation() { //자신의 위치와 공 위치를 전송
 		server.send(direction + " " + getX() + " " + getY()); // x좌표, y좌표 전송
 	}
 
@@ -101,7 +100,7 @@ public class Player_Server extends JLabel {
 							y = y - jumpY;
 							foot = y + ySize; // 발바닥 위치 저장
 							setLocation(getX(), y);
-							sendLocation(); // 좌표 전송
+							//sendLocation(); // 좌표 전송
 							updateUI();
 							try {
 								Thread.sleep(10);
@@ -134,7 +133,7 @@ public class Player_Server extends JLabel {
 								y = y + jumpY; // y좌표에 낙하량을 더한다
 								foot = y + ySize; // 발바닥 위치 저장
 								setLocation(getX(), y);
-								sendLocation();// 좌표 전송
+								//sendLocation();// 좌표 전송
 								updateUI();
 								try {
 									Thread.sleep(10);

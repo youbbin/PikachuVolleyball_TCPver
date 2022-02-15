@@ -12,7 +12,7 @@ public class Play {
 	static final int ROUND_MAX = 10; // 라운드 수
 	public static String winner; // 우승자
 	ImageIcon iiWin_setSize;
-
+	static int round;
 	public Play(GameFrame gameframe) {
 		this.gameframe = gameframe;
 		this.jp = gameframe.jp;
@@ -30,30 +30,35 @@ public class Play {
 		jlRound.setFont(new Font("Cooper Black", Font.BOLD, 50));
 		jp.add(jlRound);
 
-		Pokeball ball;
-		// ROUND_MAX만큼 포켓볼 스레드 실행
-		for (int round = 1; round <= ROUND_MAX; round++) {
-			jlRound.setText(round + " Round");
-			ball = new Pokeball(gameframe); // 포켓볼 스레드 생성
-			jp.add(ball);
-			Thread ballThread = new Thread((Runnable) ball);
-			ballThread.start(); // 포켓볼 스레드 시작
-			try {
-				ballThread.join(); // 현재 스레드 종료 후 다음 스레드 실행
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		
+		
+		if (IntroFrame.isServer) {	
+			// 서버가 ROUND_MAX만큼 포켓볼 스레드 실행
+			Pokeball ball;
+			for (round = 1; round <= ROUND_MAX; round++) {
+				jlRound.setText(round + " Round");
+				ball = new Pokeball(gameframe); // 포켓볼 스레드 생성
+				jp.add(ball);
+				Thread ballThread = new Thread((Runnable) ball);
+				ballThread.start(); // 포켓볼 스레드 시작
+				try {
+					ballThread.join(); // 현재 스레드 종료 후 다음 스레드 실행
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+		}else {
+			gameframe.jp.add(gameframe.client.pbc);
 		}
-		if (Pokeball.p1Score > Pokeball.p2Score) {
+
+		if (Pokeball.psScore > Pokeball.psScore) {
 			jlRound.setText("1P Win!");
 
-			
 		}
-		if (Pokeball.p1Score < Pokeball.p2Score) {
+		if (Pokeball.pcScore < Pokeball.pcScore) {
 			jlRound.setText("2P Win!");
-
 		}
-		if (Pokeball.p1Score == Pokeball.p2Score) {
+		if (Pokeball.psScore == Pokeball.pcScore) {
 			jlRound.setText("Draw");
 			winner = null; // 비기면 우승자 없음
 		}
