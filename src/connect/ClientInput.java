@@ -77,7 +77,6 @@ public class ClientInput extends JFrame implements ActionListener {
 		setVisible(true);
 		setTitle("클라이언트 연결 설정");
 		setSize(330, 270);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
 	}
