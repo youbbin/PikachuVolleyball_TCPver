@@ -10,10 +10,10 @@ import connect.Client;
 import connect.Server;
 
 public class GameFrame extends JFrame implements KeyListener {
-	Container ct;
+	public static Container ct;
 	public JLabel jlScore_p1;
 	public JLabel jlScore_p2;
-	public JPanel jp;
+	public static JPanel jp;
 	public static boolean gameStart = false;
 	public static int groundHeight;
 	public JLabel jlNet;

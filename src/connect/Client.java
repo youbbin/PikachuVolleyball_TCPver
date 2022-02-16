@@ -11,6 +11,7 @@ import play.Pokeball_Client;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.*;
+import frame.*;
 
 public class Client extends Thread {
 	Socket c;
@@ -25,7 +26,8 @@ public class Client extends Thread {
 	public JLabel jlScore_ps;
 	public JLabel jlScore_pc;
 	Database database;
-	
+	String serverName;
+
 	public Client(String serverIP, int serverPort) {
 		this.serverIP = serverIP;
 		this.serverPort = serverPort;
@@ -72,50 +74,65 @@ public class Client extends Thread {
 		}
 	}
 
+	public String getServerName() {
+		return serverName;
+	}
+
 	public void run() {
 		while (true) {
 			try {
 				read = br.readLine();
 				String[] split = read.split(" "); // 수신한 좌표 정보를 배열에 저장
-				if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
-					op.setIcon(Opponent.pikachuR_setSize);
-				} else if (split[0].equals("1")) { // 방향이 왼쪽이면 왼쪽 보는 아이콘으로 설정
-					op.setIcon(Opponent.pikachuL_setSize);
-				}
-				op.setOpponent(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
-				pbc.setPokeball(Integer.parseInt(split[3]), Integer.parseInt(split[4]));
-				int round=Integer.parseInt(split[5]);
-				jlRound.setText(round + " Round");
-				jlScore_ps.setText(split[6]);
-				jlScore_pc.setText(split[7]);
-				int psScore=Integer.parseInt(split[6]);
-				int pcScore= Integer.parseInt(split[7]);
-				
-				if (Integer.parseInt(split[5]) == 10 && psScore + pcScore== 10) {
-					database=new Database();
-					if(psScore>pcScore) {
-						jlRound.setText("Server Win!");
-						try {
-							database.updateLose(ClientInput.name); //이긴 횟수 업데이트
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+				if (split.length == 1) {
+					serverName = split[0];
+					System.out.println("클라이언트가 받은 서버 이름 " + serverName);
+				} else {
+					if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
+						op.setIcon(Opponent.pikachuR_setSize);
+					} else if (split[0].equals("1")) { // 방향이 왼쪽이면 왼쪽 보는 아이콘으로 설정
+						op.setIcon(Opponent.pikachuL_setSize);
+					}
+					op.setOpponent(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
+					pbc.setPokeball(Integer.parseInt(split[3]), Integer.parseInt(split[4]));
+					int round = Integer.parseInt(split[5]);
+					jlRound.setText(round + " Round");
+					jlScore_ps.setText(split[6]);
+					jlScore_pc.setText(split[7]);
+					int psScore = Integer.parseInt(split[6]);
+					int pcScore = Integer.parseInt(split[7]);
+
+					if (Integer.parseInt(split[5]) == 10 && psScore + pcScore == 10) { // 게임 종료 시
+						database = new Database();
+						if (psScore > pcScore) {
+							jlRound.setText("Server Win!");
+							try {
+								database.updateLose(ClientInput.name); // 이긴 횟수 업데이트
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
-					}
-					if(psScore<pcScore) {
-						jlRound.setText("Client Win!");
-						try {
-							database.updateWin(ClientInput.name); //진 횟수 업데이트
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						if (psScore < pcScore) {
+							jlRound.setText("Client Win!");
+							try {
+								database.updateWin(ClientInput.name); // 진 횟수 업데이트
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
-					}
-					if(psScore==pcScore) {
-						jlRound.setText("Draw");
+						if (psScore == pcScore) {
+							jlRound.setText("Draw");
+						}
+						Thread.sleep(1000);
+						ResultPanel resultPanel = new ResultPanel(serverName, ClientInput.name, psScore, pcScore);
+						GameFrame.jp.setVisible(false);
+						GameFrame.ct.add(resultPanel);
+
 					}
 				}
-			} catch (IOException e) {
+
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				break;

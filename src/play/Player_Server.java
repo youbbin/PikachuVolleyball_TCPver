@@ -25,7 +25,7 @@ public class Player_Server extends JLabel {
 	public Player_Server(Server server, JPanel jp, JLabel jlNet) { // 서버 선택했을 때 player
 		this.server = server;
 		this.jp = jp;
-		field=jp.getHeight()-GameFrame.groundHeight;
+		field = jp.getHeight() - GameFrame.groundHeight;
 		netXPos = jlNet.getX(); // 네트의 x좌표
 		ImageIcon pikachuR = new ImageIcon("pikachu_R.png");
 		Image img = pikachuR.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
@@ -75,7 +75,7 @@ public class Player_Server extends JLabel {
 		Jump jump = new Jump();
 	}
 
-	public void sendLocation() { //자신의 위치와 공 위치를 전송
+	public void sendLocation() { // 자신의 위치와 공 위치를 전송
 		server.send(direction + " " + getX() + " " + getY()); // x좌표, y좌표 전송
 	}
 
@@ -86,7 +86,6 @@ public class Player_Server extends JLabel {
 					int y = getY();
 					int foot = y + ySize; // 발바닥 위치는 피카츄의 y좌표+피카츄의 높이
 					if (fall == false) {
-						System.out.println("점프 시작");
 						jump = true; // 점프중으로 변경
 						long t1 = getTime(); // 현재시간을 가져옴
 						long t2;
@@ -98,7 +97,7 @@ public class Player_Server extends JLabel {
 							y = y - jumpY;
 							foot = y + ySize; // 발바닥 위치 저장
 							setLocation(getX(), y);
-							//sendLocation(); // 좌표 전송
+							// sendLocation(); // 좌표 전송
 							updateUI();
 							try {
 								Thread.sleep(10);
@@ -121,7 +120,6 @@ public class Player_Server extends JLabel {
 
 						if (jump == false && foot < field && fall == false) {
 							fall = true;
-							System.out.println("낙하 시작");
 							long t1 = getTime(); // 현재시간을 가져옴
 							long t2;
 							int set = 1; // 낙하 계수 설정

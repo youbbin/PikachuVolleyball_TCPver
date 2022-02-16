@@ -4,12 +4,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import connect.*;
+
 public class IntroFrame extends JFrame implements ActionListener {
 	Container ct;
 	JLabel jlTitle;
 	public JButton jbServer;
 	public JButton jbClient;
-	public static boolean isServer=false;
+	public JButton jbRanking;
+	public static boolean isServer = false;
+
 	public IntroFrame() {
 		ct = getContentPane();
 		ct.setLayout(null);
@@ -22,7 +25,7 @@ public class IntroFrame extends JFrame implements ActionListener {
 		jlTitle.setSize(500, 100);
 		jlTitle.setLocation(250, 250); // 위치 설정
 
-		ImageIcon iiServer = new ImageIcon("server.png"); // 게임 시작 버튼
+		ImageIcon iiServer = new ImageIcon("server.png"); // 서버로 하기 버튼
 		Image imgServer = iiServer.getImage().getScaledInstance(250, 70, Image.SCALE_SMOOTH); // 사이즈 조정
 		ImageIcon iiServer_setSize = new ImageIcon(imgServer);
 		jbServer = new JButton();
@@ -33,7 +36,7 @@ public class IntroFrame extends JFrame implements ActionListener {
 		jbServer.setLocation(380, 450); // 위치 설정
 		jbServer.addActionListener(this); // 버튼에 액션 리스너 추가
 
-		ImageIcon iiClient = new ImageIcon("client.png"); // 게임 시작 버튼
+		ImageIcon iiClient = new ImageIcon("client.png"); // 클라이언트로 하기 버튼
 		Image imgClient = iiClient.getImage().getScaledInstance(300, 70, Image.SCALE_SMOOTH); // 사이즈 조정
 		ImageIcon iiClient_setSize = new ImageIcon(imgClient);
 		jbClient = new JButton();
@@ -44,9 +47,15 @@ public class IntroFrame extends JFrame implements ActionListener {
 		jbClient.setLocation(360, 550); // 위치 설정
 		jbClient.addActionListener(this); // 버튼에 액션 리스너 추가
 
+		jbRanking=new JButton("랭킹보기");
+		jbRanking.setSize(100,50);
+		jbRanking.addActionListener(this);
+		jbRanking.setLocation(360,650);
+		
 		ct.add(jlTitle);
 		ct.add(jbServer);
 		ct.add(jbClient);
+		ct.add(jbRanking);
 		setTitle("Pikachu Volleyball Intro");
 		setSize(1000, 800);
 		setResizable(false);
@@ -57,13 +66,16 @@ public class IntroFrame extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		Object obj = ae.getSource();
-		if(obj==jbServer) {
-			isServer=true;
-			ServerInput si=new ServerInput(this);
+		if (obj == jbServer) {
+			isServer = true;
+			ServerInput si = new ServerInput(this);
 		}
-		if(obj==jbClient) {
-			isServer=false;
-			ClientInput ci=new ClientInput(this);
+		if (obj == jbClient) {
+			isServer = false;
+			ClientInput ci = new ClientInput(this);
+		}
+		if(obj==jbRanking) {
+			RankingFrame rf=new RankingFrame();
 		}
 	}
 }

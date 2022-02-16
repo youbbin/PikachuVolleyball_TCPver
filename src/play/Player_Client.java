@@ -23,12 +23,12 @@ public class Player_Client extends JLabel {
 	int yPos;
 	boolean fall;
 	boolean jump;
-	int direction; //0: 오른쪽, 1: 왼쪽
+	int direction; // 0: 오른쪽, 1: 왼쪽
 
 	public Player_Client(Client client, JPanel jp, JLabel jlNet) { // 서버 선택했을 때 player
 		this.client = client;
 		this.jp = jp;
-		field=jp.getHeight()-GameFrame.groundHeight;
+		field = jp.getHeight() - GameFrame.groundHeight;
 		netXPos = jlNet.getX(); // 네트의 x좌표
 		netXSize = jlNet.getWidth();
 		ImageIcon pikachuR = new ImageIcon("pikachu_R.png");
@@ -91,7 +91,6 @@ public class Player_Client extends JLabel {
 					int y = getY();
 					int foot = y + ySize; // 발바닥 위치는 피카츄의 y좌표+피카츄의 높이
 					if (fall == false) {
-						System.out.println("점프 시작");
 						jump = true; // 점프중으로 변경
 						long t1 = getTime(); // 현재시간을 가져옴
 						long t2;
@@ -126,7 +125,6 @@ public class Player_Client extends JLabel {
 
 						if (jump == false && foot < field && fall == false) {
 							fall = true;
-							System.out.println("낙하 시작");
 							long t1 = getTime(); // 현재시간을 가져옴
 							long t2;
 							int set = 1; // 낙하 계수 설정

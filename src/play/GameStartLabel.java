@@ -13,8 +13,9 @@ public class GameStartLabel extends JLabel implements Runnable { // 게임 시작 레
 	JLabel jlNet;
 
 	GameFrame gameframe;
+
 	public GameStartLabel(GameFrame gameframe) {
-		this.gameframe=gameframe;
+		this.gameframe = gameframe;
 		this.jp = gameframe.jp;
 		this.jlNet = gameframe.jlNet;
 		ImageIcon iiStartLabel = new ImageIcon("start_label.png");

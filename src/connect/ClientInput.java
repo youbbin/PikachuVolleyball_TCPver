@@ -6,6 +6,7 @@ import javax.swing.*;
 import frame.GameFrame;
 import frame.IntroFrame;
 import play.*;
+
 public class ClientInput extends JFrame implements ActionListener {
 	IntroFrame introframe;
 	JTextField jtfServerIP;
@@ -19,8 +20,9 @@ public class ClientInput extends JFrame implements ActionListener {
 	static String name;
 	Client client;
 	public Opponent op;
+
 	public ClientInput(IntroFrame introframe) {
-		this.introframe=introframe;
+		this.introframe = introframe;
 		Container ct = getContentPane();
 		ct.setLayout(null);
 		JLabel jlServerIP = new JLabel("서버의 IP를 입력하세요");
@@ -39,14 +41,14 @@ public class ClientInput extends JFrame implements ActionListener {
 		jtfServerPort.setSize(220, 25);
 		jtfServerPort.setLocation(80, 100);
 
-		JLabel jlName = new JLabel("닉네임을 입력하세요"); 
-		jlName.setSize(200,50);
+		JLabel jlName = new JLabel("닉네임을 입력하세요");
+		jlName.setSize(200, 50);
 		jlName.setLocation(80, 120);
-		
-		jtfName = new JTextField(20); //닉네임 입력 JTextField
-		jtfName.setSize(220,25);
+
+		jtfName = new JTextField(20); // 닉네임 입력 JTextField
+		jtfName.setSize(220, 25);
 		jtfName.setLocation(80, 160);
-		
+
 		JButton jbSet = new JButton("시작"); // 확인 버튼
 		jbSet.setSize(60, 30);
 		jbSet.setLocation(100, 200);
@@ -88,12 +90,13 @@ public class ClientInput extends JFrame implements ActionListener {
 		if (ae.getActionCommand() == "시작") {
 			ip = jtfServerIP.getText();
 			port = Integer.parseInt(jtfServerPort.getText());
-			name=jtfName.getText();
+			name = jtfName.getText();
 			setVisible(false);
 			introframe.setVisible(false);
 			client = new Client(ip, port);
 			GameFrame gf = new GameFrame(client);
 			gf.createGameFrame();
+			client.send(name);
 			client.start();
 		}
 	}

@@ -2,12 +2,11 @@ package play;
 
 import java.awt.*;
 import java.sql.SQLException;
-
 import javax.swing.*;
-
 import connect.ClientInput;
 import frame.GameFrame;
 import frame.IntroFrame;
+import frame.ResultPanel;
 import database.*;
 import connect.ServerInput;
 
@@ -29,10 +28,10 @@ public class Play {
 		iiWin_setSize = new ImageIcon(imgWin);
 
 		if (!IntroFrame.isServer) { // 클라이언트일 경우
-			gameframe.jp.add(gameframe.client.pbc);
-			gameframe.jp.add(gameframe.client.jlRound);
-			gameframe.jp.add(gameframe.client.jlScore_ps);
-			gameframe.jp.add(gameframe.client.jlScore_pc);
+			jp.add(gameframe.client.pbc);
+			jp.add(gameframe.client.jlRound);
+			jp.add(gameframe.client.jlScore_ps);
+			jp.add(gameframe.client.jlScore_pc);
 		}
 	}
 
@@ -60,11 +59,11 @@ public class Play {
 					e.printStackTrace();
 				}
 			}
-			database=new Database();
+			database = new Database();
 			if (Pokeball.psScore > Pokeball.pcScore) {
 				jlRound.setText("Server Win!");
 				try {
-					database.updateWin(ServerInput.name); //진 횟수 업데이트
+					database.updateWin(ServerInput.name); // 진 횟수 업데이트
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -72,13 +71,24 @@ public class Play {
 			if (Pokeball.pcScore > Pokeball.psScore) {
 				jlRound.setText("Client Win!");
 				try {
-					database.updateLose(ServerInput.name); //이긴 횟수 업데이트
+					database.updateLose(ServerInput.name); // 이긴 횟수 업데이트
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 			if (Pokeball.psScore == Pokeball.pcScore) {
 				jlRound.setText("Draw");
+			}
+			try {
+				Thread.sleep(1000);
+				ResultPanel resultpanel = new ResultPanel(ServerInput.name, gameframe.server.getClientName(),
+						Pokeball.psScore, Pokeball.pcScore);
+				System.out.println(ServerInput.name + " " + gameframe.server.getClientName() + " " + Pokeball.psScore
+						+ " " + Pokeball.pcScore);
+				jp.setVisible(false);
+				gameframe.ct.add(resultpanel);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
