@@ -16,7 +16,7 @@ public class ClientInput extends JFrame implements ActionListener {
 	JButton jbClient;
 	int port;
 	String ip;
-	String name;
+	static String name;
 	Client client;
 	public Opponent op;
 	public ClientInput(IntroFrame introframe) {
@@ -49,12 +49,12 @@ public class ClientInput extends JFrame implements ActionListener {
 		
 		JButton jbSet = new JButton("시작"); // 확인 버튼
 		jbSet.setSize(60, 30);
-		jbSet.setLocation(100, 140);
+		jbSet.setLocation(100, 200);
 		jbSet.addActionListener(this);
 
 		JButton jbCancel = new JButton("취소"); // 취소 버튼
 		jbCancel.setSize(60, 30);
-		jbCancel.setLocation(170, 140);
+		jbCancel.setLocation(170, 200);
 		jbCancel.addActionListener(this);
 
 		JLabel jlIcon = new JLabel();
@@ -71,10 +71,12 @@ public class ClientInput extends JFrame implements ActionListener {
 		ct.add(jlPort);
 		ct.add(jtfServerPort);
 		ct.add(jbSet);
+		ct.add(jlName);
+		ct.add(jtfName);
 		ct.add(jbCancel);
 		setVisible(true);
 		setTitle("클라이언트 연결 설정");
-		setSize(330, 300);
+		setSize(330, 270);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -87,6 +89,7 @@ public class ClientInput extends JFrame implements ActionListener {
 		if (ae.getActionCommand() == "시작") {
 			ip = jtfServerIP.getText();
 			port = Integer.parseInt(jtfServerPort.getText());
+			name=jtfName.getText();
 			setVisible(false);
 			introframe.setVisible(false);
 			client = new Client(ip, port);

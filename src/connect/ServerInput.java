@@ -9,7 +9,7 @@ public class ServerInput extends JFrame implements ActionListener {
 	JTextField jtfPort;
 	JTextField jtfName;
 	int port;
-	String name;
+	public static String name;
 	WaitingFrame waitingframe;
 	
 	public ServerInput(IntroFrame introframe) {

@@ -1,9 +1,15 @@
 package play;
 
 import java.awt.*;
+import java.sql.SQLException;
+
 import javax.swing.*;
+
+import connect.ClientInput;
 import frame.GameFrame;
 import frame.IntroFrame;
+import database.*;
+import connect.ServerInput;
 
 public class Play {
 	boolean gameFinish = false;
@@ -13,6 +19,7 @@ public class Play {
 	public static String winner; // 우승자
 	ImageIcon iiWin_setSize;
 	static int round;
+	Database database;
 
 	public Play(GameFrame gameframe) {
 		this.gameframe = gameframe;
@@ -21,7 +28,7 @@ public class Play {
 		Image imgWin = iiWin.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		iiWin_setSize = new ImageIcon(imgWin);
 
-		if (!IntroFrame.isServer) {
+		if (!IntroFrame.isServer) { // 클라이언트일 경우
 			gameframe.jp.add(gameframe.client.pbc);
 			gameframe.jp.add(gameframe.client.jlRound);
 			gameframe.jp.add(gameframe.client.jlScore_ps);
@@ -30,7 +37,7 @@ public class Play {
 	}
 
 	public void roundStart() {
-		if (IntroFrame.isServer) {
+		if (IntroFrame.isServer) { // 서버일 경우
 			// 서버가 ROUND_MAX만큼 포켓볼 스레드 실행
 			JLabel jlRound = new JLabel(); // 몇 라운드인지 표시하는 레이블
 			jlRound.setSize(500, 100);
@@ -53,13 +60,22 @@ public class Play {
 					e.printStackTrace();
 				}
 			}
-
+			database=new Database();
 			if (Pokeball.psScore > Pokeball.pcScore) {
 				jlRound.setText("Server Win!");
-
+				try {
+					database.updateWin(ServerInput.name); //진 횟수 업데이트
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-			if (Pokeball.pcScore < Pokeball.psScore) {
+			if (Pokeball.pcScore > Pokeball.psScore) {
 				jlRound.setText("Client Win!");
+				try {
+					database.updateLose(ServerInput.name); //이긴 횟수 업데이트
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 			if (Pokeball.psScore == Pokeball.pcScore) {
 				jlRound.setText("Draw");

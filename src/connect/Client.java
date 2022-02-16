@@ -1,7 +1,11 @@
 package connect;
 
 import java.net.*;
+import java.sql.SQLException;
+
 import javax.swing.JLabel;
+
+import database.Database;
 import play.Opponent;
 import play.Pokeball_Client;
 import java.awt.Color;
@@ -20,7 +24,8 @@ public class Client extends Thread {
 	public JLabel jlRound;
 	public JLabel jlScore_ps;
 	public JLabel jlScore_pc;
-
+	Database database;
+	
 	public Client(String serverIP, int serverPort) {
 		this.serverIP = serverIP;
 		this.serverPort = serverPort;
@@ -85,12 +90,26 @@ public class Client extends Thread {
 				jlScore_pc.setText(split[7]);
 				int psScore=Integer.parseInt(split[6]);
 				int pcScore= Integer.parseInt(split[7]);
+				
 				if (Integer.parseInt(split[5]) == 10 && psScore + pcScore== 10) {
+					database=new Database();
 					if(psScore>pcScore) {
 						jlRound.setText("Server Win!");
+						try {
+							database.updateLose(ClientInput.name); //이긴 횟수 업데이트
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					if(psScore<pcScore) {
 						jlRound.setText("Client Win!");
+						try {
+							database.updateWin(ClientInput.name); //진 횟수 업데이트
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					if(psScore==pcScore) {
 						jlRound.setText("Draw");
