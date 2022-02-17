@@ -65,14 +65,11 @@ public class Pokeball extends JLabel implements Runnable {
 	public void move() {
 		while (true) {
 			// 좌우 벽에 닿았을 때
-			if (xPos <= 0 || xPos + xSize >= xMax) {
+			if (xPos <= 0 || xPos + xSize >= xMax) 
 				xDir *= -1;
-
-			}
 			// 천장에 닿았을 때
-			else if (yPos <= 0) {
+			else if (yPos <= 0) 
 				yDir *= -1;
-			}
 			// 플레이어1 진영의 바닥에 닿았을 때
 			else if (xPos + xSize <= netXPos && yPos + ySize >= yMax - GameFrame.groundHeight) {
 				roundFinish = true;
@@ -104,43 +101,35 @@ public class Pokeball extends JLabel implements Runnable {
 				break;
 			}
 			// 네트 왼쪽에 닿았을 때
-			else if (xPos + xSize == netXPos && yPos + ySize >= netYPos) {
-				xDir *= -1;
-			}
+			else if (xPos + xSize == netXPos && yPos + ySize >= netYPos) 
+				xDir *= -1;			
 			// 네트 오른쪽에 닿았을 때
-			else if (xPos == netXPos + netXSize && yPos + ySize >= netYPos) {
+			else if (xPos == netXPos + netXSize && yPos + ySize >= netYPos) 
 				xDir *= -1;
-			}
-
 			// 네트 위쪽에 닿았을 때
-			else if (xPos + xSize > netXPos && xPos < netXPos + netXSize && yPos + ySize >= netYPos) {
+			else if (xPos + xSize > netXPos && xPos < netXPos + netXSize 
+					&& yPos + ySize >= netYPos) 
 				yDir *= -1;
-			}
-
 			// 플레이어1 머리 반사
-			else if (xPos + xSize >= ps.getX() && xPos <= ps.getX() + ps.xSize && yPos + ySize == ps.getY()) {
-				yDir *= -1;
-			}
+			else if (xPos + xSize >= ps.getX() && xPos <= ps.getX() + ps.xSize 
+					&& yPos + ySize == ps.getY()) 
+				yDir *= -1;			
 			// 플레이어1 몸 왼쪽 반사
-			else if (xPos + xSize == ps.getX() && yPos + ySize > ps.getY()) {
-				xDir *= -1;
-			}
+			else if (xPos + xSize == ps.getX() && yPos + ySize > ps.getY()) 
+				xDir *= -1;			
 			// 플레이어1 몸 오른쪽 반사
-			else if (xPos == ps.getX() + ps.getWidth() && yPos + ySize > ps.getY()) {
+			else if (xPos == ps.getX() + ps.getWidth() && yPos + ySize > ps.getY()) 
 				xDir *= -1;
-			}
 			// 플레이어2 머리 반사
-			else if (xPos + xSize >= op.getX() && xPos <= op.getX() + op.xSize && yPos + ySize == op.getY()) {
+			else if (xPos + xSize >= op.getX() && xPos <= op.getX() + op.xSize 
+					&& yPos + ySize == op.getY()) 
 				yDir *= -1;
-			}
 			// 플레이어2 몸 왼쪽 반사
-			else if (xPos + xSize == op.getX() && yPos + ySize > op.getY()) {
+			else if (xPos + xSize == op.getX() && yPos + ySize > op.getY()) 
 				xDir *= -1;
-			}
 			// 플레이어2 몸 오른쪽 반사
-			else if (xPos == op.getX() + op.getWidth() && yPos + ySize > op.getY()) {
+			else if (xPos == op.getX() + op.getWidth() && yPos + ySize > op.getY()) 
 				yDir *= -1;
-			}
 			xPos += (xDir * xSpeed); // x좌표 설정
 			yPos += (yDir * ySpeed); // y좌표 설정
 			setLocation(xPos, yPos); // 위치 셋팅

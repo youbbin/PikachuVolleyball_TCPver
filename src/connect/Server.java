@@ -28,7 +28,6 @@ public class Server extends Thread {
 		try {
 			ss = new ServerSocket(port);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -38,7 +37,6 @@ public class Server extends Thread {
 			bw.write(str + "\n");
 			bw.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -62,24 +60,24 @@ public class Server extends Thread {
 			br = new BufferedReader(is);
 			send(ServerInput.name);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		String read = "";
 		while (true) {
 			try {
-				read = br.readLine(); // 클라이언트의 좌표 수신
+				String read = br.readLine(); // 클라이언트의 좌표 수신
 				String[] split = read.split(" "); // 수신한 좌표 정보를 배열에 저장
+				// split={방향, 플레이어 x좌표, 플레이어 y좌표}
 				if (split.length == 1) {
 					clientName = split[0];
+				} else {
+					if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
+						op.setIcon(Opponent.pikachuR_setSize);
+					} else if (split[0].equals("1")) { // 방향이 왼쪽이면 왼쪽 보는 아이콘으로 설정
+						op.setIcon(Opponent.pikachuL_setSize);
+					}
+					op.setOpponent(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
 				}
-				if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
-					op.setIcon(Opponent.pikachuR_setSize);
-				} else if (split[0].equals("1")) { // 방향이 왼쪽이면 왼쪽 보는 아이콘으로 설정
-					op.setIcon(Opponent.pikachuL_setSize);
-				}
-				op.setOpponent(Integer.parseInt(split[1]), Integer.parseInt(split[2]));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

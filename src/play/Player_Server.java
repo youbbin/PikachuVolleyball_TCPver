@@ -18,8 +18,8 @@ public class Player_Server extends JLabel {
 	static int ySize;
 	int field;
 	int yPos;
-	boolean fall;
-	boolean jump;
+	boolean fall; // 하강 중인지 표시
+	boolean jump; // 점프 중인지 표시
 	public int direction; // 0: 오른쪽, 1: 왼쪽
 
 	public Player_Server(Server server, JPanel jp, JLabel jlNet) { // 서버 선택했을 때 player
@@ -51,10 +51,8 @@ public class Player_Server extends JLabel {
 		setIcon(pikachuR_setSize); // 오른쪽으로 움직이면 오른쪽 보는 피카츄로 셋팅
 		if (getX() + getWidth() >= netXPos) {
 			setLocation(getX(), yPos);
-		} else {
+		} else
 			setLocation(getX() + 20, yPos);
-
-		}
 		updateUI();
 	}
 
@@ -63,20 +61,13 @@ public class Player_Server extends JLabel {
 		setIcon(pikachuL_setSize); // 왼쪽으로 움직이면 왼쪽 보는 피카츄로 셋팅
 		if (getX() <= 0) {
 			setLocation(0, yPos);
-
-		} else {
+		} else
 			setLocation(getX() - 20, yPos);
-
-		}
 		updateUI();
 	}
 
 	public void jump() {
 		Jump jump = new Jump();
-	}
-
-	public void sendLocation() { // 자신의 위치와 공 위치를 전송
-		server.send(direction + " " + getX() + " " + getY()); // x좌표, y좌표 전송
 	}
 
 	class Jump {
@@ -97,12 +88,10 @@ public class Player_Server extends JLabel {
 							y = y - jumpY;
 							foot = y + ySize; // 발바닥 위치 저장
 							setLocation(getX(), y);
-							// sendLocation(); // 좌표 전송
 							updateUI();
 							try {
 								Thread.sleep(10);
 							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
@@ -133,7 +122,6 @@ public class Player_Server extends JLabel {
 								try {
 									Thread.sleep(10);
 								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
 							}
@@ -143,7 +131,6 @@ public class Player_Server extends JLabel {
 						try {
 							Thread.sleep(10);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}

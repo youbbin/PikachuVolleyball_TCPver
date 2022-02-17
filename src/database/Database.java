@@ -27,8 +27,10 @@ public class Database {
 		}
 	}
 
-	public boolean checkPlayer(String name) throws SQLException { // 플레이어가 테이블에 등록되어있는지 확인
-		String chk = "SELECT EXISTS (SELECT player_name FROM player where player_name = '" + name + "') as chk ";
+	// 플레이어가 테이블에 등록되어있는지 확인
+	public boolean checkPlayer(String name) throws SQLException {
+		String chk = "SELECT EXISTS (SELECT player_name FROM player " 
+				+ "where player_name = '" + name + "') as chk ";
 		ResultSet rs = stmt.executeQuery(chk);
 		boolean check = false;
 		while (rs.next()) {
@@ -39,8 +41,8 @@ public class Database {
 		}
 		return check;
 	}
-
-	public void updateWin(String name) throws SQLException { // 이긴 횟수 업데이트
+	// 이긴 횟수 업데이트
+	public void updateWin(String name) throws SQLException { 
 		if (!checkPlayer(name)) { // 플레이어가 테이블에 등록되어있지 않으면 새로 등록한다
 			String insert = "INSERT INTO player (player_name,win,lose) VALUES ('" + name + "',0,0)";
 			stmt.executeUpdate(insert);
@@ -56,8 +58,8 @@ public class Database {
 		String update = "UPDATE player SET win = " + num + " WHERE player_name = '" + name + "'";
 		stmt.executeUpdate(update); // 업데이트
 	}
-
-	public void updateLose(String name) throws SQLException { // 진 횟수 업데이트
+	// 진 횟수 업데이트
+	public void updateLose(String name) throws SQLException { 
 		if (!checkPlayer(name)) { // 플레이어가 테이블에 등록되어있지 않으면 새로 등록한다
 			String insert = "INSERT INTO player (player_name,win,lose) VALUES ('" + name + "',0,0)";
 			stmt.executeUpdate(insert);
@@ -89,7 +91,7 @@ public class Database {
 		ResultSet rs = stmt.executeQuery(search);
 		int num = 0;
 		while (rs.next()) {
-			num = rs.getInt("lose"); // 이긴 횟수 가져오기
+			num = rs.getInt("lose"); // 진 횟수 가져오기
 		}
 		return num;
 	}
@@ -126,5 +128,4 @@ public class Database {
 		}
 		return scrollPane;
 	}
-
 }

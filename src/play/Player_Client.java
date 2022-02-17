@@ -55,10 +55,8 @@ public class Player_Client extends JLabel {
 		setIcon(pikachuR_setSize); // 오른쪽으로 움직이면 오른쪽 보는 피카츄로 셋팅
 		if (getX() + getWidth() >= jp.getWidth()) {
 			setLocation(getX(), yPos);
-		} else {
+		} else
 			setLocation(getX() + 20, yPos);
-
-		}
 		sendLocation();
 		updateUI();
 	}
@@ -68,7 +66,6 @@ public class Player_Client extends JLabel {
 		setIcon(pikachuL_setSize); // 왼쪽으로 움직이면 왼쪽 보는 피카츄로 셋팅
 		if (getX() <= netXPos + netXSize) {
 			setLocation(getX(), yPos);
-
 		} else {
 			setLocation(getX() - 20, yPos);
 		}

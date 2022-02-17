@@ -1,9 +1,9 @@
 package frame;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import connect.*;
+
 
 public class IntroFrame extends JFrame implements ActionListener {
 	Container ct;

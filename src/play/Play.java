@@ -15,18 +15,12 @@ public class Play {
 	JPanel jp;
 	GameFrame gameframe;
 	static final int ROUND_MAX = 10; // 라운드 수
-	public static String winner; // 우승자
-	ImageIcon iiWin_setSize;
 	static int round;
 	Database database;
 
 	public Play(GameFrame gameframe) {
 		this.gameframe = gameframe;
 		this.jp = gameframe.jp;
-		ImageIcon iiWin = new ImageIcon("pikachu_win.png");
-		Image imgWin = iiWin.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-		iiWin_setSize = new ImageIcon(imgWin);
-
 		if (!IntroFrame.isServer) { // 클라이언트일 경우
 			jp.add(gameframe.client.pbc);
 			jp.add(gameframe.client.jlRound);
@@ -46,7 +40,7 @@ public class Play {
 			jlRound.setFont(new Font("Cooper Black", Font.BOLD, 50));
 			jp.add(jlRound);
 
-			Pokeball ball;
+			Pokeball ball; //서버 포켓볼 
 			for (round = 1; round <= ROUND_MAX; round++) {
 				jlRound.setText(round + " Round");
 				ball = new Pokeball(gameframe); // 포켓볼 스레드 생성

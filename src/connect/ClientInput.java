@@ -29,7 +29,7 @@ public class ClientInput extends JFrame implements ActionListener {
 		jlServerIP.setSize(200, 50);
 		jlServerIP.setLocation(80, 0);
 
-		jtfServerIP = new JTextField(20);
+		jtfServerIP = new JTextField(20); //서버 IP 입력 JTextField
 		jtfServerIP.setSize(220, 25);
 		jtfServerIP.setLocation(80, 40);
 

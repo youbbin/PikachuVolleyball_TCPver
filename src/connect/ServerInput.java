@@ -17,33 +17,30 @@ public class ServerInput extends JFrame implements ActionListener {
 		this.introframe = introframe;
 		Container ct = getContentPane();
 		ct.setLayout(null);
-
+		
 		JLabel jlPort = new JLabel("포트번호를 입력하세요");
 		jlPort.setSize(200, 50);
 		jlPort.setLocation(80, 0);
-
 		jtfPort = new JTextField(20); // 포트 번호 입력 JTextField
 		jtfPort.setSize(220, 25);
 		jtfPort.setLocation(80, 40);
-
+		
 		JLabel jlName = new JLabel("닉네임을 입력하세요");
 		jlName.setSize(200, 50);
 		jlName.setLocation(80, 60);
-
 		jtfName = new JTextField(20); // 닉네임 입력 JTextField
 		jtfName.setSize(220, 25);
 		jtfName.setLocation(80, 100);
-
+		
 		JButton jbSet = new JButton("확인"); // 확인 버튼
 		jbSet.setSize(60, 30);
 		jbSet.setLocation(100, 140);
 		jbSet.addActionListener(this);
-
 		JButton jbCancel = new JButton("취소"); // 취소 버튼
 		jbCancel.setSize(60, 30);
 		jbCancel.setLocation(170, 140);
 		jbCancel.addActionListener(this);
-
+		
 		JLabel jlIcon = new JLabel();
 		ImageIcon pikachuR = new ImageIcon("pikachu_R.png");
 		Image img = pikachuR.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -51,6 +48,7 @@ public class ServerInput extends JFrame implements ActionListener {
 		jlIcon.setIcon(pikachuR_setSize);
 		jlIcon.setSize(pikachuR_setSize.getIconWidth(), pikachuR_setSize.getIconHeight());
 		jlIcon.setLocation(15, 20);
+		
 		ct.add(jlIcon);
 		ct.add(jlPort);
 		ct.add(jtfPort);
@@ -63,7 +61,6 @@ public class ServerInput extends JFrame implements ActionListener {
 		setSize(330, 210);
 		setResizable(false);
 		setLocationRelativeTo(null);
-
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -83,7 +80,6 @@ public class ServerInput extends JFrame implements ActionListener {
 
 class WaitingFrame extends JFrame {
 	Container ct;
-
 	public WaitingFrame() {
 		ct = getContentPane();
 		ct.setLayout(null);
