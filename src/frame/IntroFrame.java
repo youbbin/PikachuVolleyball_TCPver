@@ -47,11 +47,17 @@ public class IntroFrame extends JFrame implements ActionListener {
 		jbClient.setLocation(360, 550); // 위치 설정
 		jbClient.addActionListener(this); // 버튼에 액션 리스너 추가
 
-		jbRanking=new JButton("랭킹보기");
-		jbRanking.setSize(100,50);
-		jbRanking.addActionListener(this);
-		jbRanking.setLocation(360,650);
-		
+		ImageIcon iiRanking = new ImageIcon("ranking.png"); // 랭킹 보기 버튼
+		Image imgRanking = iiRanking.getImage().getScaledInstance(220, 60, Image.SCALE_SMOOTH);
+		ImageIcon iiRanking_setSize = new ImageIcon(imgRanking);
+		jbRanking = new JButton();
+		jbRanking.setIcon(iiRanking_setSize);
+		jbRanking.setBorderPainted(false); // 버튼 외곽선 없애기
+		jbRanking.setContentAreaFilled(false); // 버튼 채우기 안함
+		jbRanking.setSize(iiRanking_setSize.getIconWidth(), iiRanking_setSize.getIconHeight());
+		jbRanking.setLocation(390, 650); // 위치 설정
+		jbRanking.addActionListener(this); // 버튼에 액션 리스너 추가
+
 		ct.add(jlTitle);
 		ct.add(jbServer);
 		ct.add(jbClient);
@@ -74,8 +80,8 @@ public class IntroFrame extends JFrame implements ActionListener {
 			isServer = false;
 			ClientInput ci = new ClientInput(this);
 		}
-		if(obj==jbRanking) {
-			RankingFrame rf=new RankingFrame();
+		if (obj == jbRanking) {
+			RankingFrame rf = new RankingFrame();
 		}
 	}
 }

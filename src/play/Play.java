@@ -80,11 +80,9 @@ public class Play {
 				jlRound.setText("Draw");
 			}
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				ResultPanel resultpanel = new ResultPanel(ServerInput.name, gameframe.server.getClientName(),
 						Pokeball.psScore, Pokeball.pcScore);
-				System.out.println(ServerInput.name + " " + gameframe.server.getClientName() + " " + Pokeball.psScore
-						+ " " + Pokeball.pcScore);
 				jp.setVisible(false);
 				gameframe.ct.add(resultpanel);
 			} catch (Exception e) {

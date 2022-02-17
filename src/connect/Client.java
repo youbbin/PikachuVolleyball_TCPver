@@ -85,7 +85,6 @@ public class Client extends Thread {
 				String[] split = read.split(" "); // 수신한 좌표 정보를 배열에 저장
 				if (split.length == 1) {
 					serverName = split[0];
-					System.out.println("클라이언트가 받은 서버 이름 " + serverName);
 				} else {
 					if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
 						op.setIcon(Opponent.pikachuR_setSize);
@@ -128,7 +127,6 @@ public class Client extends Thread {
 						ResultPanel resultPanel = new ResultPanel(serverName, ClientInput.name, psScore, pcScore);
 						GameFrame.jp.setVisible(false);
 						GameFrame.ct.add(resultPanel);
-
 					}
 				}
 

@@ -73,7 +73,6 @@ public class Server extends Thread {
 				String[] split = read.split(" "); // 수신한 좌표 정보를 배열에 저장
 				if (split.length == 1) {
 					clientName = split[0];
-					System.out.println("서버가 받은 클라이언트 이름:" + clientName);
 				}
 				if (split[0].equals("0")) { // 방향이 오른쪽이면 오른쪽 보는 아이콘으로 설정
 					op.setIcon(Opponent.pikachuR_setSize);

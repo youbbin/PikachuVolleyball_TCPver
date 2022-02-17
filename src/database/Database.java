@@ -16,12 +16,11 @@ public class Database {
 	public Database() {
 		id = "root";
 		pw = "5478";
-		url = "jdbc:mysql://localhost:3306/mydatabase?serverTimezone=UTC";
+		url = "jdbc:mysql://210.102.142.15:3306/mydatabase?serverTimezone=UTC";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, id, pw);
 			stmt = conn.createStatement();
-			System.out.println("SQL 연결 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("SQL 연결 안됨");
