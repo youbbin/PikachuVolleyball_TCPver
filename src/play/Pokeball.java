@@ -41,7 +41,7 @@ public class Pokeball extends JLabel implements Runnable {
 		jlScore_p1 = gameframe.jlScore_p1;
 		jlScore_p2 = gameframe.jlScore_p2;
 		ImageIcon iiBall = new ImageIcon("pokeball.png");
-		Image imgBall = iiBall.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		Image imgBall = iiBall.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
 		ImageIcon iiBall_setSize = new ImageIcon(imgBall);
 		setIcon(iiBall_setSize);
 		netXPos = gameframe.jlNet.getX(); // ³×Æ®ÀÇ xÁÂÇ¥

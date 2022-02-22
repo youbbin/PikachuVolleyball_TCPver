@@ -7,10 +7,10 @@ import javax.swing.*;
 
 public class Opponent extends JLabel {
 	static ImageIcon pikachuR = new ImageIcon("pikachu_R.png");
-	static Image img = pikachuR.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+	static Image img = pikachuR.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
 	public static ImageIcon pikachuR_setSize = new ImageIcon(img);
 	static ImageIcon pikachuL = new ImageIcon("pikachu_L.png");
-	static Image imgL = pikachuL.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+	static Image imgL = pikachuL.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
 	public static ImageIcon pikachuL_setSize = new ImageIcon(imgL);
 	int yPos;
 	Server server;

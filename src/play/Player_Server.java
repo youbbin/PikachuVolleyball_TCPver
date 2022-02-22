@@ -28,14 +28,14 @@ public class Player_Server extends JLabel {
 		field = jp.getHeight() - GameFrame.groundHeight;
 		netXPos = jlNet.getX(); // ³×Æ®ÀÇ xÁÂÇ¥
 		ImageIcon pikachuR = new ImageIcon("pikachu_R.png");
-		Image img = pikachuR.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		Image img = pikachuR.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
 		pikachuR_setSize = new ImageIcon(img);
 		setIcon(pikachuR_setSize);
 		xSize = pikachuR_setSize.getIconWidth();
 		ySize = pikachuR_setSize.getIconHeight();
 		setSize(xSize, ySize);
 		ImageIcon pikachuL = new ImageIcon("pikachu_L.png");
-		Image imgL = pikachuL.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		Image imgL = pikachuL.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
 		pikachuL_setSize = new ImageIcon(imgL);
 	}
 
